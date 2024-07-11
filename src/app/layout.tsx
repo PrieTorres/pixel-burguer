@@ -5,6 +5,9 @@ import { Provider } from "@/components/Provider/Provider";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { LanguageContextProvider } from "@/components/Contexts/LanguagueContext";
+import { ThemeProvider } from "styled-components";
+import { theme } from "@/Styles/theme";
+import { GlobalStyles } from "@/Styles/global-styles";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,17 +24,20 @@ export default function RootLayout({
 
   return (
     <LanguageContextProvider>
-      <html lang={"en"}>
-        <body className={inter.className}>
-          <Provider>
-            <Header />
-            <main>
-              {children}
-            </main>
-            <Footer />
-          </Provider>
-        </body>
-      </html>
+      <ThemeProvider theme={theme}>
+        <GlobalStyles/>
+        <html lang={"en"}>
+          <body className={inter.className}>
+            <Provider>
+              <Header />
+              <main>
+                {children}
+              </main>
+              <Footer />
+            </Provider>
+          </body>
+        </html>
+      </ThemeProvider>
     </LanguageContextProvider>
   );
 }

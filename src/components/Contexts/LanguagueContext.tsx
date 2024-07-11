@@ -1,3 +1,4 @@
+"use client";
 import { TFunction, i18n } from "i18next";
 import React, {
   ReactNode,

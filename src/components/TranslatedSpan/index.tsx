@@ -1,6 +1,6 @@
 "use client";
+import { useLanguageContext } from "../Contexts/LanguagueContext";
 import { Container } from "./styles"
-import { useLanguageContext } from "../../context/LanguagueContext";
 
 
 export const TranslatedSpan = ({

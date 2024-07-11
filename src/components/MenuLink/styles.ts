@@ -1,5 +1,5 @@
 import styled, { DefaultTheme, css } from 'styled-components';
-import { responsiveFontSize } from '../Styles/helperStyles';
+import { responsiveFontSize } from '@/Styles/helperStyles';
 
 export const Container = styled.a`
   ${({ theme }: { theme: DefaultTheme }) => css`

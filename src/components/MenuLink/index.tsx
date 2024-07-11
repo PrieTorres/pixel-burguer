@@ -5,7 +5,7 @@ import { TranslatedSpan } from '../TranslatedSpan';
 export interface MenuLinkProps {
   children: ReactElement | string,
   link: string,
-  newTab?: boolean | undefined
+  newTab?: boolean
 }
 
 export const MenuLink = ({ children, link, newTab = false }: MenuLinkProps) => {

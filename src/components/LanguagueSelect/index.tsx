@@ -1,14 +1,15 @@
+"use client";
 import { ReactElement } from "react";
 import { Container } from "./styles";
-import brasilFlag from "../../../assets/images/brasil.png";
-import euaFlag from "../../../assets/images/eua.png";
+//import brasilFlag from "../../../assets/images/brasil.png";
+//import euaFlag from "../../../assets/images/eua.png";
 import { useLanguageContext } from "../Contexts/LanguagueContext";
 
 export const LanguagueSelect = (): ReactElement => {
   const { onClickLanguageChange } = useLanguageContext();
   const selectLanguagues = [
-    { val: "pt", src: brasilFlag, text: "pt-br" },
-    { val: "en", src: euaFlag, text: "en" },
+    { val: "pt", src: "", text: "pt-br" },
+    { val: "en", src: "", text: "en" },
   ];
 
   return (

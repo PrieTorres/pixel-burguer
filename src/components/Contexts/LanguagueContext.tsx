@@ -1,3 +1,4 @@
+"use client";
 import { TFunction, i18n } from "i18next";
 import React, {
   ReactNode,
@@ -34,18 +35,20 @@ export const LanguageContextProvider = ({ children }: { children: ReactNode; }) 
   const { t, i18n } = useTranslation();
 
   useEffect(() => {
-    i18n
-      .use(Backend)
-      .use(LanguageDetector)
-      .use(initReactI18next)
-      .init({
-        fallbackLng: 'en',
-        debug: true,
+    if (typeof i18n.use == "function") {
+      i18n
+        .use(Backend)
+        .use(LanguageDetector)
+        .use(initReactI18next)
+        .init({
+          fallbackLng: 'en',
+          debug: true,
 
-        interpolation: {
-          escapeValue: false,
-        }
-      });
+          interpolation: {
+            escapeValue: false,
+          }
+        });
+    }
   }, []);
 
   const onClickLanguageChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -56,7 +59,10 @@ export const LanguageContextProvider = ({ children }: { children: ReactNode; }) 
   return (
     <LanguageContext.Provider
       value={{ t, i18n, onClickLanguageChange, languages }}
-    >{children}
+    >
+      <html lang={i18n.language}>
+        {children}
+      </html>
     </LanguageContext.Provider>
   );
 };

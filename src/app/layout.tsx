@@ -21,15 +21,17 @@ export default function RootLayout({
 
   return (
     <LanguageContextProvider>
-      <body className={inter.className}>
-        <Provider>
-          <Header />
-          <main>
-            {children}
-          </main>
-          <Footer />
-        </Provider>
-      </body>
+      <html lang="en">
+        <body className={inter.className}>
+          <Provider>
+            <Header />
+            <main>
+              {children}
+            </main>
+            <Footer />
+          </Provider>
+        </body>
+      </html>
     </LanguageContextProvider>
   );
 }

@@ -1,6 +1,6 @@
 "use client";
 import i18n, { i18n as i18ntype, TFunction } from "i18next";
-import React, { ReactNode, createContext, useContext, ChangeEvent, useEffect, useState } from "react";
+import React, { ReactNode, createContext, useContext, ChangeEvent, useEffect } from "react";
 import { useTranslation, initReactI18next } from "react-i18next";
 import Backend from 'i18next-http-backend';
 import LanguageDetector from 'i18next-browser-languagedetector';

@@ -8,9 +8,9 @@ export const Container = styled.div`
     gap: 12px;
     max-height: 100%;
 
-    /*@media ${theme.media.lteSmall} {
+    @media ${theme.media.lteSmall} {
       flex-flow: column;
       width: 100%;
-    }*/
+    }
   `}
 `;

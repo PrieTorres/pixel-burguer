@@ -10,7 +10,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Pixel Burguer - Delicious Pixels",
-  description: "Next app ecommerce simulator from a some dev, please don't try to order here",
+  description: "Next app ecommerce simulator from some dev, please don't try to order here",
 };
 
 export default function RootLayout({

@@ -6,7 +6,12 @@ export const animationDeclaration = ["@-moz-keyframes", "@-webkit-keyframes", "@
 
 export const getFontSize = (theme: DefaultTheme, size: Sizes, device: DeviceSizes) => css`
   font-size: ${theme.font.size[`${device}_device_${size}`]};
-`
+`;
+
+export const getDotSize = (theme: DefaultTheme, size: Sizes, device: DeviceSizes) => css`
+  width: ${theme.dotSize[`${device}`]};
+  height: ${theme.dotSize[`${device}`]};
+`;
 
 export const responsiveFontSize = (theme: DefaultTheme, size: Sizes) => css`
   ${getFontSize(theme, size, "large") ?? ""}
@@ -16,6 +21,17 @@ export const responsiveFontSize = (theme: DefaultTheme, size: Sizes) => css`
   }
   @media ${theme.media.lteSmall} {
     ${getFontSize(theme, size, "small") ?? ""}
+  }
+`;
+
+export const responsiveDotSize = (theme: DefaultTheme, size: Sizes) => css`
+  ${getDotSize(theme, size, "large") ?? ""}
+
+  @media ${theme.media.lteMedium} {
+    ${getDotSize(theme, size, "medium") ?? ""}
+  }
+  @media ${theme.media.lteSmall} {
+    ${getDotSize(theme, size, "small") ?? ""}
   }
 `;
 

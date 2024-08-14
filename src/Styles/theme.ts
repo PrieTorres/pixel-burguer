@@ -48,7 +48,12 @@ export const theme = {
   height: {
     headerheight: "100px",
     sectionHeight: "90vh",
-    footerHeight: "100px"
+    footerHeight: "100px",
+  },
+  dotSize: {
+    small: "10px",
+    medium: "16px",
+    large: "20px",
   },
   spacings: {
     xxsmall: "0.4rem",

@@ -1,3 +1,5 @@
+"use client"
+
 const ErrorPage = () => {
   return (
     <div className='w-full flex-center'>

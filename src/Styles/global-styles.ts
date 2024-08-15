@@ -4,10 +4,16 @@ import 'material-icons/iconfont/material-icons.css';
 
 export const GlobalStyles = createGlobalStyle`
   @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
   @import url('material-icons/iconfont/material-icons.css');
-  @tailwind base;
-  @tailwind components;
-  @tailwind utilities;
+
+  @font-face {
+    font-family: 'VT323';
+    src: url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+  }
 
   *{
     margin: 0;
@@ -21,9 +27,10 @@ export const GlobalStyles = createGlobalStyle`
 
   body{
     ${({ theme }) => css`
-      font-family: "Courier New", Courier, monospace;
+      font-family: "VT323", monospace;
       background: #222;
       background: ${theme.colors.mainBg};
+      color: ${theme.colors.secondaryColor}
       font-family: ${({ theme }) => theme.font.family.default};
       ${responsiveFontSize(theme, "medium")}
     `}

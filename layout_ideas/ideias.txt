@@ -1,0 +1,37 @@
+1.1 Caixa no meio com carrousel seletor do combo, esquerda mostra lanche, direita mostra adicionais, ambos entram e saem da tela com um transform no left ou no right
+vai precisar ter as infos de preço e botão de comprar
+
+1.2 caixa misteriosa com promoção do dia por id de user e uma contagem de de 24 hrs logo abaixo dela, a caixa ainda vai aparecer se n estiver logado mas não vai ser possível resgatar o cupom, 
+cupom aplicável somente na compra e com a validade de 24hrs
+
+(1.3) sistema de level conforme compra de lanches e combos que garante descontos e cupons exclusivos, e reduz o timer do cupom, depois de certo nível pode permitir guardar cupons e colecioná-los
+
+
+
+2.1 lanches vem da esquerda para direita e ficam em cima de prato, seletor discreto, imagens png o prato mantém, só troca os lanches, ver se deixa info acima ou abaixo do prato
+
+2.2 ranking de lanche, deve lembrar um pódio com os lanches mais pedidos, deixar montado desde o começo para vir essa info de acordo com o JSON do lanche
+
+
+(3.1) montador de lanche -> 
+      lanche na lateral conforme adiciona itens adiciona a imagem do item adicionado no lanche
+
+(3.2) montador de lanche permite salvar lanche personalizado
+
+(3.3) montador de lanche exibe animação dos itens caindo 1 a 1 até fechar o pão em cima (animação pode ser reaproveitada para ser utilizada nos lanches comuns)
+
+(3.4) montador de lanche contém aba para visualização de lanches personalizados de outras pessoas (pode ser uma má idéia, mas é uma boa oprtunidade para implementar uma IA identificadora de nomes ofensivos ou inválidos)
+
+(4.1) - menu de lanches
+
+(5.1) - carrinho
+
+(6.1) - meus pedidos / histórico
+(6.2) - botão de pedir novamente
+(6.3) - botão de cancelar pedidos
+(6.4) - botão de acompanhar pedido (só pra integrar com o google maps se pa)
+
+(7.1) - site cozinha para ver pedidos em aberto
+
+
+### anatomy -- https://uiverse.io/barisdogansutcu/proud-lion-79 <-- botar no lanche

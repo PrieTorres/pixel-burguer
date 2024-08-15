@@ -14,10 +14,10 @@ export const SignButtons = () => {
   const [toggleDropdown, setToggleDropdown] = useState(false);
 
   useEffect(() => {
-    (async () => {
-      const res = await getProviders();
-      setProviders(res);
-    })();
+    //(async () => {
+    //  const res = await getProviders();
+    //  setProviders(res);
+    //})();
   }, []);
 
   return(

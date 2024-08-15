@@ -6,8 +6,8 @@ export const theme = {
   },
   font: {
     family: {
-      default: "'Open sans', sans-serif",
-      secondary: "'Montserrat', sans-serif",
+      default: "'VT323', monospace, 'Open sans', sans-serif",
+      secondary: "'VT323','Montserrat', sans-serif",
     },
     size: {
       small_device_xxsmall: "0.4rem",

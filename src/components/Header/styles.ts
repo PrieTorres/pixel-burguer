@@ -9,15 +9,17 @@ export const Container = styled.header`
     height: ${theme.height.headerheight};
     min-width: fit-content;
     overflow: hidden;
+    color: ${theme.colors.secondaryColor};
     padding: ${theme.spacings.small};
     background: ${theme.colors.black};
     background: ${theme.gradient.darkGreyGradient};
 
-    ${responsiveFontSize(theme, "large")}
+    ${responsiveFontSize(theme, "xlarge")}
 
     @media ${theme.media.lteMedium} {
       height: auto;
       align-items: flex-start;
+      ${responsiveFontSize(theme, "xlarge")}
     }
   `}
 `;

@@ -1,6 +1,5 @@
 import { MenuLink } from '../MenuLink';
 import { MenuLinkProps } from "../MenuLink/index";
-import { SignButtons } from '../SingButtons';
 import { Container } from './styles';
 
 
@@ -16,7 +15,6 @@ export const NavLinks = ({ links = [] }: {
           {...link}
         />
       ))}
-      <SignButtons/>
     </Container>
   )
 }

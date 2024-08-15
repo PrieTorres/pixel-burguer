@@ -1,7 +1,6 @@
 import { MenuLinkProps } from "../MenuLink";
 import { NavLinks } from "../NavLinks";
 import { Container } from "./Styles";
-import { signIn, signOut, useSession, getProviders } from "next-auth/react";
 import { SafeImage } from "../SafeImage";
 
 export const Menu = () => {
@@ -12,7 +11,7 @@ export const Menu = () => {
     },
     {
       children: "home",
-      link: "/home",
+      link: "/",
     },
     {
       children: "menu",

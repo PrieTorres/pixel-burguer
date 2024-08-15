@@ -1,40 +1,67 @@
 "use client";
 
 import styled, { DefaultTheme, css } from 'styled-components';
-import { responsiveFontSize } from '@/Styles/helperStyles';
 
 export const Container = styled.a`
-  ${({ theme }: { theme: DefaultTheme }) => css`
-    ${responsiveFontSize(theme, "medium")}
-    text-decoration: none;
-    display: inline-flex;
-    padding: ${theme.spacings.xsmall};
-    color: ${theme.colors.white};
+  ${({ theme }: { theme: DefaultTheme; }) => css`
+    font-size: 25px;
+    color: white;
+    height: auto;
+    margin: 10px;
+    
     position: relative;
-    height: 100%;
-    text-align: center;
-    align-items: center;
-    align-content: center;
+    display: inline-block;
+    vertical-align: top;
+    text-transform: uppercase;
+    
+    cursor: pointer;
+    
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 
-    &::after{
-      content: "";
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      width: 0;
-      height: 0.2rem;
-      background-color: ${theme.colors.secondaryColor};
-      transition: all .3s ease-in-out;
-    }
-    &:hover::after{
-      content: "";
-      position: absolute;
-      bottom: 0;
-      left: 25%;
-      width: 50%;
-      height: 0.2rem;
-      background-color: ${theme.colors.secondaryColor};
-      transition: all .3s ease-in-out;
+    line-height: 0;
+  
+    image-rendering: optimizeSpeed;
+    image-rendering: -moz-crisp-edges; /* Firefox */
+    image-rendering: -o-crisp-edges; /* Opera */
+    image-rendering: -webkit-optimize-contrast; /* Webkit (non-standard naming) */
+    image-rendering: crisp-edges;
+    -ms-interpolation-mode: nearest-neighbor; /* IE (non-standard property) */
+    
+    border-style: solid;
+    border-width: 20px;
+    -moz-border-image: url(https://i.imgur.com/sREM8Yn.png) 20 stretch;
+    -webkit-border-image: url(https://i.imgur.com/sREM8Yn.png) 20 stretch;
+    -o-border-image: url(https://i.imgur.com/sREM8Yn.png) 20 stretch;
+    border-image: url(https://i.imgur.com/sREM8Yn.png) 20 stretch;
+
+    & > * {
+      display: inline-block;
+      vertical-align: top;
+      position: relative;
+      width: auto;
+      text-align: center;
+      margin: -20px -20px;
+      line-height: 20px;
+      padding: 10px 20px;
+      
+      background: #000000;
+      background:
+        linear-gradient(135deg, transparent 10px, #000000 0) top left,
+        linear-gradient(225deg, transparent 10px, #000000 0) top right,
+        linear-gradient(315deg, transparent 10px, #000000 0) bottom right,
+        linear-gradient(45deg,  transparent 10px, #000000 0) bottom left;
+      background-size: 50% 50%;
+      background-repeat: no-repeat;
+      background-image:
+        radial-gradient(circle at 0 0, rgba(204,0,0,0) 14px, #000000 15px),
+        radial-gradient(circle at 100% 0, rgba(204,0,0,0) 14px, #000000 15px),
+        radial-gradient(circle at 100% 100%, rgba(204,0,0,0) 14px, #000000 15px),
+        radial-gradient(circle at 0 100%, rgba(204,0,0,0) 14px, #000000 15px);
     }
   `}
 `;

@@ -1,12 +1,15 @@
 "use client";
 import i18n, { i18n as i18ntype, TFunction } from "i18next";
-import React, { ReactNode, createContext, useContext, ChangeEvent, useEffect } from "react";
+import React, { ReactNode, createContext, useContext, useEffect, useCallback } from "react";
 import { useTranslation, initReactI18next } from "react-i18next";
 import Backend from 'i18next-http-backend';
 import LanguageDetector from 'i18next-browser-languagedetector';
 
 interface Languages {
-  [key: string]: {
+  pt: {
+    nativeName: string;
+  };
+  en: {
     nativeName: string;
   };
 }
@@ -14,7 +17,7 @@ interface Languages {
 export interface LanguageContextProps {
   t: TFunction;
   i18n: i18ntype;
-  onClickLanguageChange: (e: ChangeEvent<HTMLSelectElement>) => void;
+  changeLanguage: (lang: keyof Languages) => void;
   languages: Languages;
 }
 
@@ -48,15 +51,14 @@ export const LanguageContextProvider = ({ children }: { children: ReactNode; }) 
 
   const { t } = useTranslation();
 
-  const onClickLanguageChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const language = e.target.value;
+  const changeLanguage = useCallback((language: keyof Languages) => {
     i18n.changeLanguage(language);
     document.documentElement.lang = i18n.language;
-  };
+  }, []);
 
   return (
     <LanguageContext.Provider
-      value={{ t, i18n, onClickLanguageChange, languages }}
+      value={{ t, i18n, changeLanguage, languages }}
     >
       {children}
     </LanguageContext.Provider>

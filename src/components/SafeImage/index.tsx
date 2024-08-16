@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { Container } from "./styles";
 import Image, { StaticImageData } from "next/image";
+import { TranslatedSpan } from "../TranslatedSpan";
 
 export interface SafeImageProps {
   src: string | StaticImageData,
@@ -24,7 +25,7 @@ export const SafeImage = ({
           src={src}
           alt={text}
           onError={() => setImageError(true)}
-        /> : <span>{text}</span>
+        /> : <TranslatedSpan>{text}</TranslatedSpan>
       }
     </Container>
   );

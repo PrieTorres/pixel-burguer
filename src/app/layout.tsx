@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { Provider } from "@/components/Provider/Provider";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
-import { LanguageContextProvider } from "@/components/Contexts/LanguagueContext";
+import { LanguageContextProvider } from "@/components/Contexts/LanguageContext";
 import '../Styles/global.css';
 
 //const inter = Inter({ subsets: ["latin"] });

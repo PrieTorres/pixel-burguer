@@ -1,17 +1,15 @@
 import { MouseEventHandler, ReactElement } from 'react';
 import * as Styled from './styles';
-import { MaterialIcon } from 'material-icons';
+import { IconSpan, IconSpanProps } from '../IconSpan';
 
-interface IconButtonProps {
-  icon: MaterialIcon;
+interface IconButtonProps extends IconSpanProps {
   onClick: MouseEventHandler<HTMLButtonElement>;
-  type?: "outlined" | "round" | "sharp" | "two-tone"
 };
 
 export const IconButton = ({ onClick, icon, type }: IconButtonProps): ReactElement => {
   return (
     <Styled.Container onClick={onClick}>
-      <span className={`material-icons${type ? `-${type}` : ""}`}>{icon}</span>
+      <IconSpan icon={icon} type={type} />
     </Styled.Container>
-  )
-}
+  );
+};

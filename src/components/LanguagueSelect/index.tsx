@@ -1,33 +1,39 @@
 "use client";
 import { ReactElement } from "react";
 import { Container } from "./styles";
-//import brasilFlag from "../../../assets/images/brasil.png";
-//import euaFlag from "../../../assets/images/eua.png";
-import { useLanguageContext } from "../Contexts/LanguagueContext";
+import brasilFlag from "../../assets/images/flags/brasil.png";
+import euaFlag from "../../assets/images/flags/eua.png";
+import { useLanguageContext } from "../Contexts/LanguageContext";
+import { DropDown } from "../DropDown";
+import { SafeImage } from "../SafeImage";
+import { transformArrayToObject } from "@/lib/helper";
 
-export const LanguagueSelect = (): ReactElement => {
-  const { onClickLanguageChange } = useLanguageContext();
-  const selectLanguagues = [
-    { val: "pt", src: "", text: "pt-br" },
-    { val: "en", src: "", text: "en" },
+export const LanguageSelect = (): ReactElement => {
+  const { changeLanguage, i18n } = useLanguageContext();
+  const selectLanguage = [
+    {
+      id: "en",
+      children: <SafeImage text={"english"} src={euaFlag} />,
+      onClick: () => changeLanguage("en")
+    },
+    {
+      id: "pt",
+      children: <SafeImage text={"portuguese"} src={brasilFlag} />,
+      onClick: () => changeLanguage("pt")
+    },
   ];
 
+  const transposedLangOpt = transformArrayToObject(selectLanguage, "id");
+
   return (
-    <Container onChange={(e) => onClickLanguageChange(e)}>
-      {selectLanguagues?.map((languagueObj) =>
-        <option
-          key={`opt_${languagueObj.val}`}
-          value={languagueObj.val}
-          style={{
-            width: 80,
-            // height: 30,
-            backgroundRepeat: "no-repeat",
-            backgroundImage: `url(${languagueObj.src})`
-          }}
-        >
-          {languagueObj.text /*<SafeImage src={languagueObj.src} text={languagueObj.text} />*/}
-        </option>
-      )}
+    <Container>
+      <DropDown
+        items={selectLanguage}
+        dropDownId="language-selector"
+        toggleId="toggle-language-selector"
+      >
+        {transposedLangOpt[i18n.language as ("pt" | "en")].children}
+      </DropDown>
     </Container>
-  )
+  );
 };

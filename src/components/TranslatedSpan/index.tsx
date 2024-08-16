@@ -1,5 +1,5 @@
 "use client";
-import { useLanguageContext } from "../Contexts/LanguagueContext";
+import { useLanguageContext } from "../Contexts/LanguageContext";
 import { Container } from "./styles"
 
 

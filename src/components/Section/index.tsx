@@ -1,8 +1,8 @@
-import { ReactElement } from 'react';
+import { ReactElement, ReactNode } from 'react';
 import * as Styled from './styles';
 import { TranslatedSpan } from '../TranslatedSpan';
 
-export const Section = ({ children }: { children: ReactElement | string }) => {
+export const Section = ({ children }: { children: ReactNode | ReactElement | string }) => {
   return (
     <Styled.Container>
       {typeof children == "string" ?

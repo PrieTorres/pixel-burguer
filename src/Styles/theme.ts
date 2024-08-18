@@ -49,6 +49,7 @@ export const theme = {
     headerheight: "100px",
     sectionHeight: "90vh",
     footerHeight: "100px",
+    dropDownDefaultHeight: "50px"
   },
   dotSize: {
     small: "10px",

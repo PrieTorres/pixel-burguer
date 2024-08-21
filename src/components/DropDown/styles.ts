@@ -4,14 +4,15 @@ import styled, { DefaultTheme, css } from 'styled-components';
 export const Container = styled.div`
   ${({ theme, height }: { theme: DefaultTheme; height?: number; }) => css`
     background: inherit;
-    box-sizing: border-box;
     width: 100%;
-    position: relative;
+    height: 100%;
+    display: block;
 
     & button {
       padding: 0px ${theme.spacings.small};
       display: flex;
       gap: 4px;
+      width: 100%;
       justify-content: space-between;
     }
 

@@ -23,7 +23,7 @@ export interface DropDownListProps {
     left?: number;
     right?: number;
     height?: number;
-    width?:number;
+    width?: number;
   };
 }
 
@@ -40,16 +40,17 @@ const DropDownList = ({ isOpen, offset, dropDownId, toggleId, items, toggleFunct
   const style = offset ? {
     ...offset,
     top: (offset.top || 0) + (offset.height || 0),
-    left: offset.left
+    left: (offset.left || 0),
+    width: offset.width,
   } : {};
 
 
   return <ClientPortal>
-    <div style={style} id={toggleId} className={`flex flex-col rounded-md ${transClass}`}>
+    <div style={{ ...style, position: "absolute" }} id={toggleId} className={`flex flex-col rounded-md ${transClass}`}>
       <ul aria-labelledby={dropDownId}>
         {items.map((dropItem, i) => (
-          <li key={`drop-item-${i}_${Math.floor(Math.random() * 99999)}`}>
-            <div onClick={(e) => { dropItem.onClick(e); toggleFunction(); }}>
+          <li style={{ height: offset?.height }} key={`drop-item-${i}_${Math.floor(Math.random() * 99999)}`}>
+            <div style={{ height: "100%" }} onClick={(e) => { dropItem.onClick(e); toggleFunction(); }}>
               {dropItem.children}
             </div>
           </li>
@@ -63,7 +64,14 @@ export const DropDown = ({ children, dropDownId, toggleId, items, height }: Drop
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [domReady, setDomReady] = useState<boolean>(false);
   const container: MutableRefObject<null | HTMLDivElement> = useRef(null);
-  const boundaries: MutableRefObject<{} | DOMRect> = useRef({});
+  const boundaries: MutableRefObject<{
+    top?: number;
+    bottom?: number;
+    left?: number;
+    right?: number;
+    height?: number;
+    width?: number;
+  }> = useRef({});
 
   const toggle = () => {
     setIsOpen(old => !old);
@@ -71,13 +79,18 @@ export const DropDown = ({ children, dropDownId, toggleId, items, height }: Drop
 
   useEffect(() => {
     setDomReady(true);
-
   }, []);
-  
+
   useEffect(() => {
     if (typeof container?.current?.getBoundingClientRect == "function") {
       console.log(container?.current?.getBoundingClientRect());
+      console.log(container?.current?.style);
+      console.log(container?.current?.offsetWidth);
+      console.log(container?.current?.clientWidth);
       boundaries.current = container?.current?.getBoundingClientRect();
+      if(typeof boundaries.current == "object"){
+        boundaries.current.width = container?.current?.clientWidth;
+      }
     }
   }, []);
   //const transClass = isOpen ? "flex" : "hidden";

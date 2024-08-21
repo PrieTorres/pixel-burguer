@@ -16,6 +16,12 @@ export const Container = styled.header`
 
     ${responsiveFontSize(theme, "xlarge")}
 
+    //& .menu-contents {
+    //  width: calc(100% - ${theme.width.languageSelector});
+    //  display: flex;
+    //  justify-content: space-between;
+    //}
+
     @media ${theme.media.lteMedium} {
       height: auto;
       align-items: flex-start;

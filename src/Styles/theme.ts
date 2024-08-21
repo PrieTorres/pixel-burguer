@@ -51,6 +51,9 @@ export const theme = {
     footerHeight: "100px",
     dropDownDefaultHeight: "50px"
   },
+  width: {
+    languageSelector: "150px"
+  },
   dotSize: {
     small: "10px",
     medium: "16px",

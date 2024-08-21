@@ -6,12 +6,14 @@ import { LanguageSelect } from '../LanguagueSelect';
 
 export const Header = (): ReactElement => {
   // TODO: Pixel burguer vai ser uma logo
-  return(
+  return (
     <Container>
-      <h1>pixel burguer</h1>
-      <Menu/>
-      <LanguageSelect/>
-      <SignButtons/>
+      {/*<div className="menu-contents">*/}
+        <h1>pixel burguer</h1>
+        <Menu />
+      {/*</div>*/}
+      <LanguageSelect />
+      <SignButtons />
     </Container>
   )
 };

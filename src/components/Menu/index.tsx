@@ -8,18 +8,22 @@ export const Menu = () => {
     {//safe image
       children: "cart",
       link: "/cart",
+      buttonType: "button_4"
     },
     {
       children: "home",
       link: "/",
+      buttonType: "button_4"
     },
     {
       children: "menu",
       link: "/menu",
+      buttonType: "button_4"
     },
     {
       children: "orders",
       link: "/orders",
+      buttonType: "button_4"
     },
   ];
 

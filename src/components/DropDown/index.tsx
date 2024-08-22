@@ -1,9 +1,19 @@
 "use client";
-import { MouseEventHandler, MutableRefObject, ReactElement, ReactNode, useEffect, useRef, useState } from 'react';
+import { Dispatch, MouseEventHandler, MutableRefObject, ReactElement, ReactNode, SetStateAction, useEffect, useRef, useState } from 'react';
 import { Container } from './styles';
 import { IconSpan } from '../IconSpan';
 import ClientPortal from '../Portal';
-import { createPortal } from 'react-dom';
+
+interface Styling {
+  top?: number;
+  bottom?: number;
+  left?: number;
+  right?: number;
+  height?: number;
+  width?: number;
+  background?: string;
+  padding?: string;
+};
 
 export interface DropItemProps {
   onClick: MouseEventHandler<HTMLDivElement>;
@@ -17,14 +27,7 @@ export interface DropDownListProps {
   height?: number;
   isOpen: boolean;
   toggleFunction: CallableFunction;
-  offset?: {
-    top?: number;
-    bottom?: number;
-    left?: number;
-    right?: number;
-    height?: number;
-    width?: number;
-  };
+  offset?: Styling;
 }
 
 export interface DropDownProps {
@@ -39,18 +42,21 @@ const DropDownList = ({ isOpen, offset, dropDownId, toggleId, items, toggleFunct
   const transClass = isOpen ? "flex" : "hidden";
   const style = offset ? {
     ...offset,
-    top: (offset.top || 0) + (offset.height || 0),
-    left: (offset.left || 0),
+    top: (offset.top ?? 0) + (offset.height ?? 0),
+    left: (offset.left ?? 0),
     width: offset.width,
   } : {};
 
 
   return <ClientPortal>
-    <div style={{ ...style, position: "absolute" }} id={toggleId} className={`flex flex-col rounded-md ${transClass}`}>
+    <div style={{ ...style, position: "absolute", borderRadius:"0px 0px 5px 5px" }} id={toggleId} className={`flex flex-col ${transClass}`}>
       <ul aria-labelledby={dropDownId}>
         {items.map((dropItem, i) => (
           <li style={{ height: offset?.height }} key={`drop-item-${i}_${Math.floor(Math.random() * 99999)}`}>
-            <div style={{ height: "100%" }} onClick={(e) => { dropItem.onClick(e); toggleFunction(); }}>
+            <div
+              style={{ height: "100%" }}
+              onClick={(e) => { dropItem.onClick(e); toggleFunction(); }}
+            >
               {dropItem.children}
             </div>
           </li>
@@ -64,14 +70,10 @@ export const DropDown = ({ children, dropDownId, toggleId, items, height }: Drop
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [domReady, setDomReady] = useState<boolean>(false);
   const container: MutableRefObject<null | HTMLDivElement> = useRef(null);
-  const boundaries: MutableRefObject<{
-    top?: number;
-    bottom?: number;
-    left?: number;
-    right?: number;
-    height?: number;
-    width?: number;
-  }> = useRef({});
+  const [sizing, setSizing]: [
+    Styling,
+    Dispatch<SetStateAction<Styling>>
+  ] = useState({});
 
   const toggle = () => {
     setIsOpen(old => !old);
@@ -82,18 +84,30 @@ export const DropDown = ({ children, dropDownId, toggleId, items, height }: Drop
   }, []);
 
   useEffect(() => {
-    if (typeof container?.current?.getBoundingClientRect == "function") {
-      console.log(container?.current?.getBoundingClientRect());
-      console.log(container?.current?.style);
-      console.log(container?.current?.offsetWidth);
-      console.log(container?.current?.clientWidth);
-      boundaries.current = container?.current?.getBoundingClientRect();
-      if(typeof boundaries.current == "object"){
-        boundaries.current.width = container?.current?.clientWidth;
+    function defineDropListSizing() {
+      let styles: Styling = {};
+      if (typeof container?.current?.getBoundingClientRect == "function") {
+        styles = container?.current?.getBoundingClientRect();
+
+        const containerStyles = window.getComputedStyle(container?.current);
+        styles.background = containerStyles.background;
+        styles.padding = containerStyles.padding;
+
+        if (typeof styles == "object") {
+          styles.width = container?.current?.clientWidth;
+        }
+
+        setSizing(styles);
       }
     }
-  }, []);
-  //const transClass = isOpen ? "flex" : "hidden";
+
+    defineDropListSizing();
+    window.addEventListener("resize", defineDropListSizing);
+
+    return () => {
+      window.removeEventListener("resize", defineDropListSizing);
+    };
+  }, [domReady]);
 
   return (
     <Container height={height} ref={container}>
@@ -115,7 +129,7 @@ export const DropDown = ({ children, dropDownId, toggleId, items, height }: Drop
         isOpen={isOpen}
         dropDownId={dropDownId}
         toggleId={toggleId}
-        offset={boundaries.current}
+        offset={sizing}
       />}
     </Container>
   );

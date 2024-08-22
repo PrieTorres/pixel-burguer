@@ -6,10 +6,11 @@ export const Container = styled.div`
     background: inherit;
     width: 100%;
     height: 100%;
-    display: block;
+    padding: 0px ${theme.spacings.small};
+    display: flex;
+    align-items: center;
 
     & button {
-      padding: 0px ${theme.spacings.small};
       display: flex;
       gap: 4px;
       width: 100%;

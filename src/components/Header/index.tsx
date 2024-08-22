@@ -8,12 +8,10 @@ export const Header = (): ReactElement => {
   // TODO: Pixel burguer vai ser uma logo
   return (
     <Container>
-      {/*<div className="menu-contents">*/}
-        <h1>pixel burguer</h1>
-        <Menu />
-      {/*</div>*/}
+      <h1>pixel burguer</h1>
+      <Menu />
       <LanguageSelect />
       <SignButtons />
     </Container>
-  )
+  );
 };

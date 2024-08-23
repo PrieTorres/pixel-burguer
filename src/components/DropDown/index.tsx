@@ -1,5 +1,5 @@
 "use client";
-import { Dispatch, MouseEventHandler, MutableRefObject, ReactElement, ReactNode, SetStateAction, useEffect, useRef, useState } from 'react';
+import { MouseEventHandler, ReactElement, ReactNode, useCallback, useEffect, useRef, useState } from 'react';
 import { Container } from './styles';
 import { IconSpan } from '../IconSpan';
 import ClientPortal from '../Portal';
@@ -31,7 +31,7 @@ export interface DropDownListProps {
   items: Array<DropItemProps>;
   height?: number;
   isOpen: boolean;
-  toggleFunction: CallableFunction;
+  toggleFunction: () => void;
   offset?: Styling;
 }
 
@@ -48,76 +48,67 @@ const DropDownList = ({ isOpen, offset, dropDownId, toggleId, items, toggleFunct
   const style = offset ? {
     ...offset,
     top: (offset.top ?? 0) + (offset.clientHeight ?? 0),
-    left: (offset.left ?? 0),
+    left: offset.left ?? 0,
     width: offset.width,
   } : {};
 
-
-  return <ClientPortal>
-    <div style={{ ...style, position: "absolute", borderRadius: "0px 0px 5px 5px" }} id={toggleId} className={`flex flex-col ${transClass}`}>
-      <ul aria-labelledby={dropDownId}>
-        {items.map((dropItem, i) => (
-          <li style={{ height: offset?.clientHeight, cursor: 'pointer' }} key={`drop-item-${i}_${Math.floor(Math.random() * 99999)}`}>
-            <div
-              style={{ height: "100%" }}
-              onClick={(e) => { dropItem.onClick(e); toggleFunction(); }}
+  return (
+    <ClientPortal>
+      <div
+        style={{ ...style, position: "absolute", borderRadius: "0 0 5px 5px" }}
+        id={toggleId}
+        className={`flex flex-col ${transClass}`}
+      >
+        <ul aria-labelledby={dropDownId}>
+          {items.map((dropItem, i) => (
+            <li
+              key={`drop-item-${i}`}
+              style={{ height: offset?.clientHeight, cursor: 'pointer' }}
             >
-              {dropItem.children}
-            </div>
-          </li>
-        ))}
-      </ul>
-    </div>
-  </ClientPortal>;
+              <div
+                style={{ height: "100%" }}
+                onClick={(e) => {
+                  dropItem.onClick(e);
+                  toggleFunction();
+                }}
+              >
+                {dropItem.children}
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </ClientPortal>
+  );
 };
 
 export const DropDown = ({ children, dropDownId, toggleId, items, height }: DropDownProps): ReactElement => {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [domReady, setDomReady] = useState<boolean>(false);
-  const container: MutableRefObject<null | HTMLDivElement> = useRef(null);
-  const [sizing, setSizing]: [
-    Styling,
-    Dispatch<SetStateAction<Styling>>
-  ] = useState({});
+  const [isOpen, setIsOpen] = useState(false);
+  const [sizing, setSizing] = useState<Styling>({});
+  const containerRef = useRef<HTMLDivElement>(null);
 
-  const toggle = () => {
-    setIsOpen(old => !old);
-  };
-
-  useEffect(() => {
-    setDomReady(true);
+  const toggle = useCallback(() => {
+    setIsOpen(prev => !prev);
   }, []);
 
   useEffect(() => {
-    function defineDropListSizing() {
-      let styles: Styling = {};
-      let boundaries: CustomStyling = {};
+    const defineDropListSizing = () => {
+      if (!containerRef.current) return;
 
-      if (typeof container?.current?.getBoundingClientRect == "function") {
-        boundaries = container?.current?.getBoundingClientRect();
+      const rect = containerRef.current.getBoundingClientRect();
+      const styles: Styling = {
+        top: rect.top,
+        left: rect.left,
+        clientHeight: rect.height,
+        width: containerRef.current.clientWidth,
+        background: window.getComputedStyle(containerRef.current).background,
+        padding: window.getComputedStyle(containerRef.current).padding,
+        outline: window.getComputedStyle(containerRef.current.parentElement ?? {}).border,
+        boxShadow: "0px 0px 8px 0px #000000d8 inset"
+      };
 
-        styles = {
-          top: boundaries.top,
-          left: boundaries.left,
-          clientHeight: boundaries.height,
-          width: container?.current?.clientWidth
-        };
-
-        const containerStyles = window.getComputedStyle(container?.current);
-        
-        styles.background = containerStyles.background;
-        styles.padding = containerStyles.padding;
-        //styles.border = containerStyles.border;
-
-        if(container?.current?.parentElement){
-          const containerParentStyles = window.getComputedStyle(container?.current?.parentElement);
-          styles.outline = containerParentStyles.border;
-          styles.boxShadow = "0px 0px 8px 0px #000000d8 inset"
-        }
-
-        setSizing(styles);
-      }
-    }
+      setSizing(styles);
+    };
 
     defineDropListSizing();
     window.addEventListener("resize", defineDropListSizing);
@@ -125,23 +116,20 @@ export const DropDown = ({ children, dropDownId, toggleId, items, height }: Drop
     return () => {
       window.removeEventListener("resize", defineDropListSizing);
     };
-  }, [domReady]);
+  }, [isOpen]);
 
   return (
-    <Container height={height} ref={container}>
+    <Container height={height} ref={containerRef}>
       <button
         id={dropDownId}
         data-dropdown-toggle={toggleId}
         data-dropdown-delay="500"
-        className="
-          text-center 
-          inline-flex 
-          items-center"
+        className="text-center inline-flex items-center"
         onClick={toggle}
       >
         {children} <IconSpan icon="arrow_drop_down" />
       </button>
-      {domReady && <DropDownList
+      {isOpen && <DropDownList
         toggleFunction={toggle}
         items={items}
         isOpen={isOpen}

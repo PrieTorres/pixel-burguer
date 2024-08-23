@@ -4,16 +4,21 @@ import { Container } from './styles';
 import { IconSpan } from '../IconSpan';
 import ClientPortal from '../Portal';
 
-interface Styling {
+interface CustomStyling {
   top?: number;
   bottom?: number;
   left?: number;
   right?: number;
   height?: number;
+  clientHeight?: number;
   width?: number;
   background?: string;
   padding?: string;
-};
+}
+
+type AllCSSProperties = Partial<Record<keyof CSSStyleDeclaration, string | number>>;
+
+type Styling = CustomStyling & AllCSSProperties;
 
 export interface DropItemProps {
   onClick: MouseEventHandler<HTMLDivElement>;
@@ -42,17 +47,17 @@ const DropDownList = ({ isOpen, offset, dropDownId, toggleId, items, toggleFunct
   const transClass = isOpen ? "flex" : "hidden";
   const style = offset ? {
     ...offset,
-    top: (offset.top ?? 0) + (offset.height ?? 0),
+    top: (offset.top ?? 0) + (offset.clientHeight ?? 0),
     left: (offset.left ?? 0),
     width: offset.width,
   } : {};
 
 
   return <ClientPortal>
-    <div style={{ ...style, position: "absolute", borderRadius:"0px 0px 5px 5px" }} id={toggleId} className={`flex flex-col ${transClass}`}>
+    <div style={{ ...style, position: "absolute", borderRadius: "0px 0px 5px 5px" }} id={toggleId} className={`flex flex-col ${transClass}`}>
       <ul aria-labelledby={dropDownId}>
         {items.map((dropItem, i) => (
-          <li style={{ height: offset?.height }} key={`drop-item-${i}_${Math.floor(Math.random() * 99999)}`}>
+          <li style={{ height: offset?.clientHeight, cursor: 'pointer' }} key={`drop-item-${i}_${Math.floor(Math.random() * 99999)}`}>
             <div
               style={{ height: "100%" }}
               onClick={(e) => { dropItem.onClick(e); toggleFunction(); }}
@@ -86,15 +91,28 @@ export const DropDown = ({ children, dropDownId, toggleId, items, height }: Drop
   useEffect(() => {
     function defineDropListSizing() {
       let styles: Styling = {};
+      let boundaries: CustomStyling = {};
+
       if (typeof container?.current?.getBoundingClientRect == "function") {
-        styles = container?.current?.getBoundingClientRect();
+        boundaries = container?.current?.getBoundingClientRect();
+
+        styles = {
+          top: boundaries.top,
+          left: boundaries.left,
+          clientHeight: boundaries.height,
+          width: container?.current?.clientWidth
+        };
 
         const containerStyles = window.getComputedStyle(container?.current);
+        
         styles.background = containerStyles.background;
         styles.padding = containerStyles.padding;
+        //styles.border = containerStyles.border;
 
-        if (typeof styles == "object") {
-          styles.width = container?.current?.clientWidth;
+        if(container?.current?.parentElement){
+          const containerParentStyles = window.getComputedStyle(container?.current?.parentElement);
+          styles.outline = containerParentStyles.border;
+          styles.boxShadow = "0px 0px 8px 0px #000000d8 inset"
         }
 
         setSizing(styles);

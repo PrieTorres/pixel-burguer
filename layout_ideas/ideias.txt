@@ -14,11 +14,11 @@ cupom aplicável somente na compra e com a validade de 24hrs
 
 
 (3.1) montador de lanche -> 
-      lanche na lateral conforme adiciona itens adiciona a imagem do item adicionado no lanche
+      lanche na lateral conforme adiciona items adiciona a imagem do item adicionado no lanche
 
 (3.2) montador de lanche permite salvar lanche personalizado
 
-(3.3) montador de lanche exibe animação dos itens caindo 1 a 1 até fechar o pão em cima (animação pode ser reaproveitada para ser utilizada nos lanches comuns)
+(3.3) montador de lanche exibe animação dos items caindo 1 a 1 até fechar o pão em cima (animação pode ser reaproveitada para ser utilizada nos lanches comuns)
 
 (3.4) montador de lanche contém aba para visualização de lanches personalizados de outras pessoas (pode ser uma má idéia, mas é uma boa oprtunidade para implementar uma IA identificadora de nomes ofensivos ou inválidos)
 

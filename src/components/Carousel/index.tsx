@@ -5,10 +5,10 @@ import { CarouselSelector } from '../CarouselSelector';
 
 export interface CarouselProps {
   items: ReactNode[];
-
+  bottomComponent?: ReactNode;
 };
 
-export const Carousel = ({ items }: CarouselProps): ReactElement => {
+export const Carousel = ({ items, bottomComponent }: CarouselProps): ReactElement => {
   const [index, setIndex] = useState(0);
   const max = items.length;
 
@@ -22,6 +22,7 @@ export const Carousel = ({ items }: CarouselProps): ReactElement => {
         setIndex={setIndex}
         itemsLength={max}
       />
+      {bottomComponent}
     </Container>
   )
 };
